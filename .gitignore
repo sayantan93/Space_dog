@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+#include<iostream>
+using namespace std;
+#define MAX 1000001
+int P[MAX];
+void say(){
+	for(int i=2;i<MAX;i++){
+		if(!P[i]){
+			int j=2*i;
+			while(j<MAX){
+				P[j]=1;
+				j+=i;
+			}
+		}
+	}
+	P[4]=0;
+	P[1]=1;
+	for(int i=1;i<MAX;i++)
+		P[i]+=P[i-1];
+}
+int query(int l,int r){
+	return P[r]-P[l-1];
+}
+int main(){
+	int t;
+	cin >> t;
+	assert(t<=1000000);
+	say();
+	while(t--){
+		int l,r;
+		cin >> l >> r;
+		assert(l<=r);
+		assert(l>=1&&r<=1000000);
+		cout << query(l,r) << endl;
+	}
+	return 0;
+}
